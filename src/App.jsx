@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Hero from "./sections/Hero";
 
 export default function App() {
   return (
@@ -6,13 +7,7 @@ export default function App() {
       <Navbar />
 
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
-        <section style={{ padding: "48px 0" }}>
-          <h1 style={{ margin: 0, fontSize: 44 }}>Designer + Web Lead</h1>
-          <p style={{ fontSize: 18, maxWidth: 720 }}>
-            I build clean, fast websites and systems that scale—without “quick fixes”
-            becoming permanent architecture.
-          </p>
-        </section>
+        <Hero />
 
         <section id="work" style={{ padding: "48px 0" }}>
           <h2>Work</h2>
@@ -32,4 +27,3 @@ export default function App() {
     </div>
   );
 }
-
