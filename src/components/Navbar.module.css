@@ -45,3 +45,40 @@
     opacity: 1;
   }
   
+  .dropdown {
+    position: relative;
+  }
+  
+  .menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 260px;
+  
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    padding: 8px;
+  
+    display: none;
+  }
+  
+  .dropdown:hover .menu,
+  .dropdown:focus-within .menu {
+    display: block;
+  }
+  
+  .menuItem {
+    display: block;
+    padding: 10px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    opacity: 0.9;
+  }
+  
+  .menuItem:hover {
+    background: var(--panel);
+    opacity: 1;
+  }
+  
