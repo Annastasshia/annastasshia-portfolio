@@ -1,68 +1,295 @@
+/* ==========================================================================
+   Global CSS Foundation (Portfolio-ready)
+   - Token-based (design-system friendly)
+   - Honors system light/dark preference
+   - Includes optional manual override via [data-theme="light|dark"]
+   - High-contrast color choices suitable for WCAG AAA for normal text*
+   ========================================================================== */
+
+/* -----------------------------
+   1) Design Tokens (Light = default)
+------------------------------ */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Typography */
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Layout */
+  --container: 1100px;
+  --pad-x: 24px;
 
-  font-synthesis: none;
+  /* Spacing scale */
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 14px;
+  --space-4: 18px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius + Motion */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --t-fast: 120ms;
+  --t-med: 180ms;
+
+  /* Light mode colors (AAA-friendly for normal text) */
+  --bg: #ffffff;
+  --surface: #f7f7f8;            /* subtle surface behind cards */
+  --panel: rgba(0, 0, 0, 0.04);  /* glassy panel fill */
+  --border: #d9d9de;
+  --border-hover: #bdbdc4;
+
+  --text: #111111;               /* AAA on white */
+  --muted: #4d4d4d;              /* AAA on white for normal text */
+  --subtle: #2b2b2b;             /* slightly softer than --text but still AAA */
+
+  /* Links + focus */
+  --link: #111111;               /* keep links AAA by default */
+  --link-hover: #000000;
+
+  --focus: #111111;              /* strong focus ring on light */
+  --focus-offset: 3px;
+
+  /* Shadows (keep minimal for portfolio) */
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* -----------------------------
+   2) Dark mode tokens (System preference)
+------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0c10;
+    --surface: #0f1117;
+    --panel: rgba(255, 255, 255, 0.04);
+    --border: #2a2a2a;
+    --border-hover: #3a3a3a;
+
+    --text: #f2f2f2;   /* AAA on near-black */
+    --muted: #bdbdbd;  /* AAA on near-black for normal text */
+    --subtle: #d6d6d6; /* still AAA */
+
+    --link: #f2f2f2;
+    --link-hover: #ffffff;
+
+    --focus: #ffffff; /* strong focus ring on dark */
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* -----------------------------
+   3) Optional manual override
+   Add to <html> or <body>: data-theme="light" or data-theme="dark"
+   Example: <html data-theme="dark">
+------------------------------ */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f7f7f8;
+  --panel: rgba(0, 0, 0, 0.04);
+  --border: #d9d9de;
+  --border-hover: #bdbdc4;
+  --text: #111111;
+  --muted: #4d4d4d;
+  --subtle: #2b2b2b;
+  --link: #111111;
+  --link-hover: #000000;
+  --focus: #111111;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0c10;
+  --surface: #0f1117;
+  --panel: rgba(255, 255, 255, 0.04);
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  --text: #f2f2f2;
+  --muted: #bdbdbd;
+  --subtle: #d6d6d6;
+  --link: #f2f2f2;
+  --link-hover: #ffffff;
+  --focus: #ffffff;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* -----------------------------
+   4) Resets / Base
+------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Media defaults */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Selection */
+::selection {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* -----------------------------
+   5) Typography defaults
+------------------------------ */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-2);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: clamp(2.1rem, 3.5vw, 3rem);
 }
 
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+p {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+small {
+  color: var(--muted);
+}
+
+/* Code */
+code,
+pre {
+  font-family: var(--font-mono);
+}
+
+/* -----------------------------
+   6) Links (AAA-friendly by default)
+------------------------------ */
+a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  transition: opacity var(--t-fast) ease, color var(--t-fast) ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+  opacity: 0.9;
+}
+
+/* For areas where you want explicit underlines (recommended for accessibility) */
+.link {
+  text-decoration: underline;
+}
+
+/* -----------------------------
+   7) Focus styles (keyboard-visible)
+------------------------------ */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: var(--focus-offset);
+  border-radius: 6px;
+}
+
+/* -----------------------------
+   8) Buttons (neutral baseline)
+------------------------------ */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+
+  padding: 0.6em 1.1em;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+  transition: border-color var(--t-fast) ease, background-color var(--t-fast) ease,
+    transform var(--t-fast) ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+button:hover {
+  border-color: var(--border-hover);
+  background: var(--panel);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* -----------------------------
+   9) Utility layout helpers (optional but useful)
+------------------------------ */
+.container {
+  width: min(var(--container), calc(100% - (var(--pad-x) * 2)));
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--space-7) 0;
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* -----------------------------
+   10) Reduced motion support
+------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
