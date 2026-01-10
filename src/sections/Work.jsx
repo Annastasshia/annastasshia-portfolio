@@ -18,7 +18,13 @@ export default function Work() {
         }}
       >
       {projects.map((p) => (
-  <ProjectCard key={p.title} project={p} />
+  <ProjectCard
+    key={p.slug}
+    project={{
+      ...p,
+      link: `/work/${p.slug}`,
+    }}
+  />
 ))}
       </div>
     </section>
