@@ -1,16 +1,172 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
   border-bottom: 1px solid var(--border);
 }
 
-.inner {
+/* NEW top row */
+.topRow {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 14px var(--pad-x);
+  padding: 10px var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.topLeft {
+  min-height: 1px; /* keeps height stable even when empty */
+}
+
+/* --- Theme toggle (track + sliding knob) --- */
+.themeToggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 40px;              /* knob matches this */
+  min-width: 132px;
+  padding: 4px;              /* creates track “border” around knob */
+  border-radius: 999px;
+
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  transition: transform var(--t-fast) ease, filter var(--t-fast) ease;
+}
+
+.themeToggle:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.themeToggle:active {
+  transform: translateY(0);
+}
+
+.themeToggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 60%, transparent);
+  outline-offset: 3px;
+}
+
+/* Track color by mode */
+.isLight {
+  background: var(--accent-id);   /* orange */
+}
+
+.isDark {
+  background: var(--accent-web);  /* green */
+}
+
+
+
+/* Both readable on colored track */
+.labelLight,
+.labelDark {
+  color: #ffffff; /* consistent contrast on orange/green */
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.9;
+  transition: opacity var(--t-med) ease;
+}
+
+/* Label layer (single active label, positioned opposite the knob) */
+.label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+  padding: 0 16px;
+}
+
+.themeToggle:hover .labelLight {
+  color: #111;
+}
+
+.labelLight,
+.labelDark {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* Show only the active label */
+.isLight .labelDark {
+  display: none;
+}
+
+.isDark .labelLight {
+  display: none;
+}
+
+/* Put the label on the empty side of the switch */
+.isLight .label {
+  justify-content: flex-end; /* knob is left, label goes right */
+}
+
+.isDark .label {
+  justify-content: flex-start; /* knob is right, label goes left */
+}
+
+/* Sliding knob = white circle as tall as the toggle’s inner height */
+.knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(40px - 8px);  /* height - (padding*2) */
+  height: calc(40px - 8px);
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--t-med) ease;
+}
+
+/* Make the toggle a 2-slot switch */
+.themeToggle {
+  min-width: 152px; /* 2 labels + knob */
+}
+
+/* Use a more predictable knob travel distance */
+.isDark .knob {
+  transform: translateX(112px);
+}
+
+.icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .themeToggle,
+  .knob,
+  .labelLight,
+  .labelDark {
+    transition: none;
+  }
+
+  .themeToggle:hover {
+    transform: none;
+  }
+}
+
+/* Existing nav row (example; keep your existing if different) */
+.nav {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 12px var(--pad-x);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,67 +174,35 @@
 }
 
 .brand {
-  font-weight: 600;
-  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: -0.02em;
   color: var(--text);
+  text-decoration: none;
 }
 
-.nav {
+.links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
 }
 
-.navLink {
+.link {
   color: var(--text);
   text-decoration: none;
+  font-weight: 650;
   padding: 8px 10px;
   border-radius: 10px;
 }
 
-.navLink:hover {
-  background: color-mix(in srgb, var(--panel) 70%, transparent);
-}
-
-/* Dropdown */
-.dropdown {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  min-width: 320px;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
+.link:hover {
   background: var(--panel);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-  display: none;
 }
 
-.dropdown:hover .menu,
-.dropdown:focus-within .menu {
-  display: block;
-}
-
-.menuItem {
-  display: block;
-  padding: 10px 12px;
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--text);
-  line-height: 1.2;
-}
-
-.menuItem:hover {
-  background: color-mix(in srgb, var(--bg) 55%, transparent);
-}
-
-/* Optional: highlight active navlink */
-:global(a.active).navLink {
-  background: color-mix(in srgb, var(--panel) 85%, transparent);
+@media (prefers-reduced-motion: reduce) {
+  .themeToggle {
+    transition: none;
+  }
+  .themeToggle:hover {
+    transform: none;
+  }
 }
