@@ -1,49 +1,55 @@
-import { projectGroups } from "../data/projectGroups";
-import ProjectCard from "../components/ProjectCard";
-
-function Group({ title, subtitle, items }) {
-  return (
-    <div style={{ padding: "32px 0" }}>
-      <h2 style={{ marginBottom: 8 }}>{title}</h2>
-      <p style={{ maxWidth: 820 }}>{subtitle}</p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 14,
-          marginTop: 16,
-        }}
-      >
-        {items.map((p) => (
-          <ProjectCard
-            key={p.slug}
-            project={{
-              ...p,
-              link: `/work/${p.slug}`, // internal page for every card
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import styles from "./Work.module.css";
 
 export default function Work() {
-  const [instructional, webdesign] = projectGroups;
+  const reduceMotion = useReducedMotion();
+
+  const cardAnim = {
+    rest: { y: 0 },
+    hover: { y: reduceMotion ? 0 : -4 },
+  };
 
   return (
-    <section id="work" style={{ padding: "48px 0" }}>
-      <Group
-        title={instructional.title}
-        subtitle={instructional.subtitle}
-        items={instructional.items}
-      />
-      <Group
-        title={webdesign.title}
-        subtitle={webdesign.subtitle}
-        items={webdesign.items}
-      />
+    <section id="work" className={styles.section}>
+      <h2 className={styles.heading}>Work</h2>
+
+      <div className={styles.grid}>
+        <motion.article
+          className={`${styles.card} ${styles.instructional}`}
+          initial="rest"
+          whileHover="hover"
+          animate="rest"
+          variants={cardAnim}
+        >
+          <h3>Instructional Design + Enablement</h3>
+          <p>
+            I design training systems and documentation that help teams execute complex standards
+            with clarity, consistency, and confidence.
+          </p>
+          <Link to="/work/instructional-design" className={styles.cta}>
+            View instructional projects →
+          </Link>
+        </motion.article>
+
+        <motion.article
+          className={`${styles.card} ${styles.webdesign}`}
+          initial="rest"
+          whileHover="hover"
+          animate="rest"
+          variants={cardAnim}
+        >
+          <h3>Web Design + Product Execution</h3>
+          <p>
+            I design and build user-centered interfaces and systems that translate product requirements
+            into scalable, production-ready solutions.
+          </p>
+          <Link to="/work/web-design" className={styles.cta}>
+            View web design projects →
+          </Link>
+        </motion.article>
+      </div>
     </section>
   );
 }
+

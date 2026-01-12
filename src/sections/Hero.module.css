@@ -1,5 +1,5 @@
 .hero {
-    padding: clamp(56px, 6vw, 96px) 0;
+    padding: clamp(64px, 6vw, 110px) 0;
     max-width: var(--container);
     margin: 0 auto;
     padding-left: var(--pad-x);
@@ -7,7 +7,7 @@
   }
   
   .kicker {
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--space-4);
     color: var(--muted);
     font-size: 0.95rem;
     letter-spacing: 0.02em;
@@ -15,15 +15,16 @@
   
   .title {
     margin: 0;
-    font-size: clamp(2.25rem, 4.2vw, 3.25rem);
+    font-size: clamp(2.35rem, 4.4vw, 3.35rem);
     line-height: 1.05;
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
   
   .lede {
-    margin: var(--space-3) 0 0;
+    margin: var(--space-4) 0 0;
     font-size: 1.125rem;
-    line-height: 1.6;
+    line-height: 1.7;
     max-width: 72ch;
     color: var(--text);
   }
@@ -31,20 +32,39 @@
   .support {
     margin: var(--space-3) 0 0;
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.7;
     max-width: 72ch;
     color: var(--muted);
   }
   
-  .current {
+  .proof {
     margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 72ch;
+  }
+  
+  .proof li {
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  
+  .current {
+    margin: var(--space-5) 0 0;
     font-size: 0.98rem;
-    line-height: 1.6;
+    line-height: 1.65;
     max-width: 72ch;
   
-    padding: 12px 14px;
+    padding: 14px 14px;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
     background: var(--panel);
     color: var(--text);
   }
@@ -68,9 +88,6 @@
     font-weight: 600;
     line-height: 1;
     border: 1px solid transparent;
-  
-    /* WCAG: ensure visible focus */
-    outline: none;
   }
   
   .primary {
@@ -78,14 +95,14 @@
     color: var(--accent-contrast, #0b0b0b);
   }
   
-  .primary:hover {
-    filter: brightness(1.05);
-  }
-  
   .secondary {
     background: transparent;
     color: var(--text);
     border-color: var(--border);
+  }
+  
+  .primary:hover {
+    filter: brightness(1.05);
   }
   
   .secondary:hover {
@@ -98,11 +115,10 @@
     outline-offset: 3px;
   }
   
-  /* Reduced motion friendly */
   @media (prefers-reduced-motion: reduce) {
     .primary,
     .secondary {
-      scroll-behavior: auto;
+      transition: none;
     }
   }
   
