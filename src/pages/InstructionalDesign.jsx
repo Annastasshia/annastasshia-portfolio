@@ -21,9 +21,11 @@ export default function InstructionalDesign() {
       >
         {group.items.map((p) => (
           <ProjectCard
-            key={p.slug}
-            project={{ ...p, link: `/work/${p.slug}` }}
-          />
+          key={p.slug}
+          project={{ ...p, link: `/work/${p.slug}` }}
+          variant="instructional"
+        />
+        
         ))}
       </div>
     </main>

@@ -20,10 +20,8 @@ export default function WebDesign() {
         }}
       >
         {group.items.map((p) => (
-          <ProjectCard
-            key={p.slug}
-            project={{ ...p, link: `/work/${p.slug}` }}
-          />
+          <ProjectCard project={{ ...p, link: `/work/${p.slug}` }} variant="webdesign" />
+
         ))}
       </div>
     </main>
