@@ -1,0 +1,108 @@
+.hero {
+    padding: clamp(56px, 6vw, 96px) 0;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+  
+  .kicker {
+    margin: 0 0 var(--space-3);
+    color: var(--muted);
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: clamp(2.25rem, 4.2vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  
+  .lede {
+    margin: var(--space-3) 0 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 72ch;
+    color: var(--text);
+  }
+  
+  .support {
+    margin: var(--space-3) 0 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 72ch;
+    color: var(--muted);
+  }
+  
+  .current {
+    margin: var(--space-4) 0 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    max-width: 72ch;
+  
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--text);
+  }
+  
+  .actions {
+    margin-top: var(--space-5);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .primary,
+  .secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid transparent;
+  
+    /* WCAG: ensure visible focus */
+    outline: none;
+  }
+  
+  .primary {
+    background: var(--accent);
+    color: var(--accent-contrast, #0b0b0b);
+  }
+  
+  .primary:hover {
+    filter: brightness(1.05);
+  }
+  
+  .secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+  }
+  
+  .secondary:hover {
+    background: color-mix(in srgb, var(--panel) 70%, transparent);
+  }
+  
+  .primary:focus-visible,
+  .secondary:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 65%, white);
+    outline-offset: 3px;
+  }
+  
+  /* Reduced motion friendly */
+  @media (prefers-reduced-motion: reduce) {
+    .primary,
+    .secondary {
+      scroll-behavior: auto;
+    }
+  }
+  
