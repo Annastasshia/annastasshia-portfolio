@@ -7,23 +7,30 @@ function Group({ title, subtitle, items, accent }) {
 
   return (
     <section className={styles.group}>
-      <header
-        className={`${styles.groupHeader} ${
-          isInstructional ? styles.headerId : styles.headerWeb
+      <div
+        className={`${styles.groupWell} ${
+          isInstructional ? styles.wellId : styles.wellWeb
         }`}
       >
-        <h2 className={styles.groupTitle}>{title}</h2>
-        <p className={styles.groupSubtitle}>{subtitle}</p>
-      </header>
+        <header
+          className={`${styles.groupHeader} ${
+            isInstructional ? styles.headerId : styles.headerWeb
+          }`}
+        >
+          <p className={styles.groupKicker}>Specialty</p>
+          <h2 className={styles.groupTitle}>{title}</h2>
+          <p className={styles.groupSubtitle}>{subtitle}</p>
+        </header>
 
-      <div className={styles.grid}>
-        {items.map((p) => (
-          <ProjectCard
-            key={p.slug}
-            project={{ ...p, link: `/work/${p.slug}` }}
-            variant={isInstructional ? "instructional" : "webdesign"}
-          />
-        ))}
+        <div className={styles.grid}>
+          {items.map((p) => (
+            <ProjectCard
+              key={p.slug}
+              project={{ ...p, link: `/work/${p.slug}` }}
+              variant={isInstructional ? "instructional" : "webdesign"}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -45,10 +52,9 @@ export default function WorkIndex() {
           title={g.title}
           subtitle={g.subtitle}
           items={g.items}
-          accent={g.accent}  // uses your existing values
+          accent={g.accent}
         />
       ))}
     </main>
   );
 }
-
