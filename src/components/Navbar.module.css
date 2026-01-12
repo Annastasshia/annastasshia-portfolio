@@ -1,84 +1,84 @@
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    /* If you want the glass effect, swap to:
-       background: color-mix(in srgb, var(--bg) 80%, transparent);
-       backdrop-filter: blur(10px);
-    */
-  }
-  
-  .inner {
-    width: min(var(--container), calc(100% - (var(--pad-x) * 2)));
-    margin: 0 auto;
-    padding: var(--space-3) 0;
-  
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-  }
-  
-  .brand {
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    text-decoration: none;
-    color: var(--text);
-  }
-  
-  .nav {
-    display: flex;
-    gap: var(--space-4);
-  }
-  
-  .link {
-    text-decoration: none;
-    color: var(--text);
-    opacity: 0.85;
-    transition: opacity var(--t-fast) ease;
-  }
-  
-  .link:hover {
-    opacity: 1;
-  }
-  
-  .dropdown {
-    position: relative;
-  }
-  
-  .menu {
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 0;
-    min-width: 260px;
-  
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--bg);
-    padding: 8px;
-  
-    display: none;
-  }
-  
-  .dropdown:hover .menu,
-  .dropdown:focus-within .menu {
-    display: block;
-  }
-  
-  .menuItem {
-    display: block;
-    padding: 10px 10px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--text);
-    opacity: 0.9;
-  }
-  
-  .menuItem:hover {
-    background: var(--panel);
-    opacity: 1;
-  }
-  
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 14px var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navLink {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.navLink:hover {
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 320px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  display: none;
+}
+
+.dropdown:hover .menu,
+.dropdown:focus-within .menu {
+  display: block;
+}
+
+.menuItem {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.menuItem:hover {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+
+/* Optional: highlight active navlink */
+:global(a.active).navLink {
+  background: color-mix(in srgb, var(--panel) 85%, transparent);
+}

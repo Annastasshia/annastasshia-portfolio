@@ -4,6 +4,9 @@ import Hero from "./sections/Hero";
 import Work from "./sections/Work";
 import WorkIndex from "./pages/WorkIndex";
 import ProjectPage from "./pages/ProjectPage";
+import InstructionalDesign from "./pages/InstructionalDesign";
+import WebDesign from "./pages/WebDesign";
+
 
 function Home() {
   return (
@@ -12,7 +15,7 @@ function Home() {
       <Work />
       <section id="about" style={{ padding: "48px 0" }}>
         <h2>About</h2>
-        <p>Short bio and specialties will go here next.</p>
+        <p>I work at the intersection of instructional design and front-end systems, building training, documentation, and standards that help teams deliver performant, accessible work with consistency at scale.</p>
       </section>
 
       <section id="contact" style={{ padding: "48px 0" }}>
@@ -31,6 +34,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<WorkIndex />} />
         <Route path="/work/:slug" element={<ProjectPage />} />
+        <Route path="/work/instructional-design" element={<InstructionalDesign />} />
+        <Route path="/work/web-design" element={<WebDesign />} />
+
       </Routes>
     </div>
   );

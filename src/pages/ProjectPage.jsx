@@ -1,132 +1,114 @@
-import { useParams, Link } from "react-router-dom";
-import { projects } from "../data/projectGroups";
+import { Link, useParams } from "react-router-dom";
 import styles from "./ProjectPage.module.css";
-
-function Section({ title, children }) {
-  return (
-    <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>{title}</h2>
-      {children}
-    </section>
-  );
-}
+import { projectGroups } from "../data/projectGroups";
 
 export default function ProjectPage() {
   const { slug } = useParams();
-  const project = projects.find((p) => p.slug === slug);
+
+  const project =
+    projectGroups.flatMap((g) => g.items).find((p) => p.slug === slug) || null;
 
   if (!project) {
     return (
       <main className={styles.page}>
-        <h1>Project not found</h1>
-        <p>
-          <Link to="/work" className="link">
-            Back to Work
-          </Link>
-        </p>
+        <p>Project not found.</p>
+        <Link to="/work">Back to Work</Link>
       </main>
     );
   }
 
-  const s = project.sections;
-  const isGallery = project.type === "gallery";
+  // Placeholder image (swap later per-project)
+  const previewImage =
+    project.image ||
+    "https://picsum.photos/seed/portfolio-project/1200/1500";
 
   return (
     <main className={styles.page}>
-      <div className={styles.back}>
-        <Link to="/work" className="link">
-          ← Back to Work
-        </Link>
-      </div>
+      <Link className={styles.backLink} to="/work">
+        ← Back to Work
+      </Link>
 
-      <h1>{project.title}</h1>
-      <p>{project.summary}</p>
+      <div className={styles.layout}>
+        {/* LEFT: content */}
+        <article className={styles.content}>
+          <h1 className={styles.title}>{project.title}</h1>
+          <p className={styles.summary}>{project.summary}</p>
 
-      <div className={styles.meta}>
-        <span className={styles.metaItem}>Role: {project.role}</span>
-        <span className={styles.metaItem}>Timeline: {project.timeline}</span>
-      </div>
-
-      <Section title="Overview">
-        <p>{s.overview}</p>
-      </Section>
-
-      <Section title="Responsibilities">
-        <ul className={styles.list}>
-          {s.responsibilities.map((item) => (
-            <li key={item} className={styles.listItem}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section title="Process">
-        <ol className={styles.list}>
-          {s.process.map((step) => (
-            <li key={step} className={styles.listItem}>
-              {step}
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      <Section title="Results">
-        <ul className={styles.list}>
-          {s.results.map((item) => (
-            <li key={item} className={styles.listItem}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section title="Tools">
-        <p className={styles.tools}>{s.tools.join(" · ")}</p>
-      </Section>
-
-      {project.links?.length ? (
-        <Section title="Links">
-          <ul className={styles.list}>
-            {project.links.map((l) => (
-              <li key={l.url}>
-                <a className="link" href={l.url} target="_blank" rel="noreferrer">
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      ) : null}
-
-      {isGallery ? (
-        <Section title="Samples">
-          <div className={styles.gallery}>
-            {project.samples.map((item) => (
-              <article key={item.id} className={styles.sample}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={styles.sampleImage}
-                />
-
-                <div>
-                  <h3 className={styles.sampleTitle}>{item.title}</h3>
-                  <p className={styles.sampleBlurb}>{item.blurb}</p>
-                  <a
-                    className="link"
-                    href={item.ctaUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {item.ctaLabel}
-                  </a>
-                </div>
-              </article>
-            ))}
+          <div className={styles.metaRow}>
+            {project.role && <span className={styles.pill}>Role: {project.role}</span>}
+            {project.timeline && (
+              <span className={styles.pill}>Timeline: {project.timeline}</span>
+            )}
           </div>
-        </Section>
-      ) : null}
+
+          {project.sections?.overview && (
+            <>
+              <h2 className={styles.h2}>Overview</h2>
+              <p className={styles.p}>{project.sections.overview}</p>
+            </>
+          )}
+
+          {project.sections?.responsibilities?.length ? (
+            <>
+              <h2 className={styles.h2}>Responsibilities</h2>
+              <ul className={styles.list}>
+                {project.sections.responsibilities.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+
+          {project.sections?.process?.length ? (
+            <>
+              <h2 className={styles.h2}>Process</h2>
+              <ol className={styles.list}>
+                {project.sections.process.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
+            </>
+          ) : null}
+
+          {project.sections?.results?.length ? (
+            <>
+              <h2 className={styles.h2}>Results</h2>
+              <ul className={styles.list}>
+                {project.sections.results.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+
+          {project.sections?.tools?.length ? (
+            <>
+              <h2 className={styles.h2}>Tools</h2>
+              <p className={styles.p}>{project.sections.tools.join(" · ")}</p>
+            </>
+          ) : null}
+        </article>
+
+        {/* RIGHT: image + CTA */}
+        <aside className={styles.side}>
+          <img
+            className={styles.preview}
+            src={previewImage}
+            alt={`${project.title} preview`}
+            loading="lazy"
+          />
+
+          <a
+            className={styles.viewMore}
+            href={project.assetUrl || "#"}
+            target={project.assetUrl ? "_blank" : undefined}
+            rel={project.assetUrl ? "noreferrer" : undefined}
+            aria-disabled={!project.assetUrl}
+          >
+            View more
+          </a>
+        </aside>
+      </div>
     </main>
   );
 }

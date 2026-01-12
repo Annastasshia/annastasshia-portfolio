@@ -1,78 +1,93 @@
 .hero {
-    padding: clamp(64px, 6vw, 110px) 0;
-    max-width: var(--container);
-    margin: 0 auto;
-    padding-left: var(--pad-x);
-    padding-right: var(--pad-x);
+    padding: clamp(44px, 6vw, 86px) 0 clamp(30px, 4vw, 56px);
+    max-width: 76ch;
   }
   
   .kicker {
-    margin: 0 0 var(--space-4);
-    color: var(--muted);
+    margin: 0 0 12px;
     font-size: 0.95rem;
+    color: var(--muted);
     letter-spacing: 0.02em;
   }
   
   .title {
     margin: 0;
-    font-size: clamp(2.35rem, 4.4vw, 3.35rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.03;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
   
-  .lede {
-    margin: var(--space-4) 0 0;
-    font-size: 1.125rem;
-    line-height: 1.7;
-    max-width: 72ch;
+  .accent {
+    position: relative;
     color: var(--text);
+  }
+  
+  /* Accent underline + glow (subtle, portfolio-y) */
+  .accent::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.14em;
+    width: 100%;
+    height: 0.16em;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent-id) 70%, transparent),
+      color-mix(in srgb, var(--accent-web) 70%, transparent)
+    );
+    opacity: 0.9;
+    filter: blur(0.4px);
+  }
+  
+  .lede {
+    margin: 16px 0 0;
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: var(--subtle);
+    max-width: 70ch;
   }
   
   .support {
-    margin: var(--space-3) 0 0;
+    margin: 14px 0 0;
     font-size: 1rem;
-    line-height: 1.7;
-    max-width: 72ch;
+    line-height: 1.75;
     color: var(--muted);
+    max-width: 70ch;
   }
   
-  .proof {
-    margin: var(--space-4) 0 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 72ch;
-  }
-  
-  .proof li {
-    font-size: 0.9rem;
-    color: var(--text);
-    background: var(--panel);
-    border: 1px solid var(--border);
-    padding: 6px 10px;
-    border-radius: 999px;
-  }
-  
+  /* Currently callout */
   .current {
-    margin: var(--space-5) 0 0;
-    font-size: 0.98rem;
-    line-height: 1.65;
-    max-width: 72ch;
-  
+    margin-top: 18px;
     padding: 14px 14px;
+    border-radius: var(--radius);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--panel);
-    color: var(--text);
+    background: color-mix(in srgb, var(--panel) 85%, transparent);
+    line-height: 1.6;
   }
   
+  .currentLabel {
+    font-weight: 800;
+    margin-right: 6px;
+  }
+  
+  /* Choose one of these for the callout accent */
+  .currentId {
+    border-left: 4px solid var(--accent-id);
+    box-shadow: var(--glow-id);
+  }
+  
+  .currentWeb {
+    border-left: 4px solid var(--accent-web);
+    box-shadow: var(--glow-web);
+  }
+  
+  /* Actions */
   .actions {
-    margin-top: var(--space-5);
     display: flex;
     gap: 12px;
+    margin-top: 18px;
     flex-wrap: wrap;
   }
   
@@ -81,44 +96,43 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  
     padding: 10px 14px;
-    border-radius: 12px;
+    border-radius: 14px;
     text-decoration: none;
-    font-weight: 600;
-    line-height: 1;
-    border: 1px solid transparent;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    transition: transform var(--t-fast) ease, border-color var(--t-fast) ease,
+      background-color var(--t-fast) ease;
   }
   
   .primary {
-    background: var(--accent);
+    background: var(--accent-id); /* or var(--accent-web) if you prefer */
     color: var(--accent-contrast, #0b0b0b);
+    border-color: transparent;
+  }
+  
+  .primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
   }
   
   .secondary {
     background: transparent;
     color: var(--text);
-    border-color: var(--border);
-  }
-  
-  .primary:hover {
-    filter: brightness(1.05);
   }
   
   .secondary:hover {
-    background: color-mix(in srgb, var(--panel) 70%, transparent);
+    transform: translateY(-1px);
+    border-color: var(--border-hover);
+    background: var(--panel);
   }
   
-  .primary:focus-visible,
-  .secondary:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 65%, white);
-    outline-offset: 3px;
-  }
-  
+  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .primary,
     .secondary {
       transition: none;
     }
   }
+  
   

@@ -3,8 +3,14 @@ import styles from "./ProjectCard.module.css";
 
 export default function ProjectCard({ project }) {
   const isInternal = project.link?.startsWith("/");
+  const accentClass =
+    project.groupAccent === "instructional"
+      ? styles.instructional
+      : project.groupAccent === "webdesign"
+      ? styles.webdesign
+      : "";
 
-  const CardInner = (
+  const content = (
     <>
       <div className={styles.header}>
         <h3 className={styles.title}>{project.title}</h3>
@@ -13,7 +19,7 @@ export default function ProjectCard({ project }) {
         </span>
       </div>
 
-      <p className={styles.desc}>{project.description || project.summary}</p>
+      <p className={styles.desc}>{project.summary}</p>
 
       <div className={styles.tags}>
         {project.tags.map((tag) => (
@@ -27,15 +33,20 @@ export default function ProjectCard({ project }) {
 
   if (isInternal) {
     return (
-      <Link className={styles.card} to={project.link}>
-        {CardInner}
+      <Link className={`${styles.card} ${accentClass}`} to={project.link}>
+        {content}
       </Link>
     );
   }
 
   return (
-    <a className={styles.card} href={project.link} target="_blank" rel="noreferrer">
-      {CardInner}
+    <a
+      className={`${styles.card} ${accentClass}`}
+      href={project.link}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {content}
     </a>
   );
 }

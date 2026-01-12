@@ -36,6 +36,29 @@
   --t-fast: 120ms;
   --t-med: 180ms;
 
+  /* Accent systems (semantic) */
+  --accent-web: #1a9b61;   /* green */
+  --accent-web-2: #26c281; /* brighter green for hover/glow */
+  --accent-id: #c46210;    /* orange */
+  --accent-id-2: #ff8a1f;  /* brighter orange for hover/glow */
+
+  /* Accent-contrast (text on accent backgrounds) */
+  --on-accent: #0b0c10;    /* dark text when accent used as fill */
+
+  /* Glow + ring (light mode: keep subtle) */
+  --glow-web: 0 0 0 1px color-mix(in srgb, var(--accent-web) 25%, transparent),
+              0 10px 30px color-mix(in srgb, var(--accent-web) 18%, transparent);
+  --glow-id:  0 0 0 1px color-mix(in srgb, var(--accent-id) 25%, transparent),
+              0 10px 30px color-mix(in srgb, var(--accent-id) 18%, transparent);
+
+  --ring-web: 0 0 0 3px color-mix(in srgb, var(--accent-web) 45%, transparent);
+  --ring-id:  0 0 0 3px color-mix(in srgb, var(--accent-id) 45%, transparent);
+
+  /* Optional: default single "brand accent" if you want one */
+  --accent: var(--accent-web);
+  --accent-contrast: var(--on-accent);
+
+  
   /* Light mode colors (AAA-friendly for normal text) */
   --bg: #ffffff;
   --surface: #f7f7f8;            /* subtle surface behind cards */
@@ -78,6 +101,32 @@
 
     --focus: #ffffff; /* strong focus ring on dark */
     --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+
+        /* Accent systems (dark mode: slightly brighter for perceived contrast) */
+        --accent-web: #2bd48f;
+        --accent-web-2: #4ff0b2;
+    
+        --accent-id: #ff8a1f;
+        --accent-id-2: #ffb15f;
+    
+        --on-accent: #0b0c10;
+    
+        /* Glow + ring (dark mode can handle more drama) */
+        --glow-web: 0 0 0 1px color-mix(in srgb, var(--accent-web) 28%, transparent),
+                    0 0 24px color-mix(in srgb, var(--accent-web) 18%, transparent),
+                    0 14px 44px rgba(0, 0, 0, 0.35);
+    
+        --glow-id:  0 0 0 1px color-mix(in srgb, var(--accent-id) 28%, transparent),
+                    0 0 24px color-mix(in srgb, var(--accent-id) 18%, transparent),
+                    0 14px 44px rgba(0, 0, 0, 0.35);
+    
+        --ring-web: 0 0 0 3px color-mix(in srgb, var(--accent-web) 55%, transparent);
+        --ring-id:  0 0 0 3px color-mix(in srgb, var(--accent-id) 55%, transparent);
+    
+        /* Optional single brand accent in dark mode */
+        --accent: var(--accent-web);
+        --accent-contrast: var(--on-accent);
+    
   }
 }
 
@@ -99,6 +148,28 @@
   --link-hover: #000000;
   --focus: #111111;
   --shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    /* Accent systems (semantic) */
+    --accent-web: #1a9b61;   /* green */
+    --accent-web-2: #26c281; /* brighter green for hover/glow */
+    --accent-id: #c46210;    /* orange */
+    --accent-id-2: #ff8a1f;  /* brighter orange for hover/glow */
+  
+    /* Accent-contrast (text on accent backgrounds) */
+    --on-accent: #0b0c10;    /* dark text when accent used as fill */
+  
+    /* Glow + ring (light mode: keep subtle) */
+    --glow-web: 0 0 0 1px color-mix(in srgb, var(--accent-web) 25%, transparent),
+                0 10px 30px color-mix(in srgb, var(--accent-web) 18%, transparent);
+    --glow-id:  0 0 0 1px color-mix(in srgb, var(--accent-id) 25%, transparent),
+                0 10px 30px color-mix(in srgb, var(--accent-id) 18%, transparent);
+  
+    --ring-web: 0 0 0 3px color-mix(in srgb, var(--accent-web) 45%, transparent);
+    --ring-id:  0 0 0 3px color-mix(in srgb, var(--accent-id) 45%, transparent);
+  
+    /* Optional: default single "brand accent" if you want one */
+    --accent: var(--accent-web);
+    --accent-contrast: var(--on-accent);
+  
 }
 
 :root[data-theme="dark"] {
@@ -114,6 +185,31 @@
   --link-hover: #ffffff;
   --focus: #ffffff;
   --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      /* Accent systems (dark mode: slightly brighter for perceived contrast) */
+      --accent-web: #2bd48f;
+      --accent-web-2: #4ff0b2;
+  
+      --accent-id: #ff8a1f;
+      --accent-id-2: #ffb15f;
+  
+      --on-accent: #0b0c10;
+  
+      /* Glow + ring (dark mode can handle more drama) */
+      --glow-web: 0 0 0 1px color-mix(in srgb, var(--accent-web) 28%, transparent),
+                  0 0 24px color-mix(in srgb, var(--accent-web) 18%, transparent),
+                  0 14px 44px rgba(0, 0, 0, 0.35);
+  
+      --glow-id:  0 0 0 1px color-mix(in srgb, var(--accent-id) 28%, transparent),
+                  0 0 24px color-mix(in srgb, var(--accent-id) 18%, transparent),
+                  0 14px 44px rgba(0, 0, 0, 0.35);
+  
+      --ring-web: 0 0 0 3px color-mix(in srgb, var(--accent-web) 55%, transparent);
+      --ring-id:  0 0 0 3px color-mix(in srgb, var(--accent-id) 55%, transparent);
+  
+      /* Optional single brand accent in dark mode */
+      --accent: var(--accent-web);
+      --accent-contrast: var(--on-accent);
+  
 }
 
 /* -----------------------------
@@ -283,6 +379,61 @@ button:disabled {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+
+/* ------------------------------------------------------------------
+   Accent utilities (use in components or CSS modules via :global)
+------------------------------------------------------------------- */
+.accentWeb {
+  --accent-local: var(--accent-web);
+  --glow-local: var(--glow-web);
+  --ring-local: var(--ring-web);
+}
+
+.accentId {
+  --accent-local: var(--accent-id);
+  --glow-local: var(--glow-id);
+  --ring-local: var(--ring-id);
+}
+
+/* Use these to apply glow to emphasized elements */
+.glowWeb {
+  box-shadow: var(--glow-web);
+  border-color: color-mix(in srgb, var(--accent-web) 40%, var(--border));
+}
+
+.glowId {
+  box-shadow: var(--glow-id);
+  border-color: color-mix(in srgb, var(--accent-id) 40%, var(--border));
+}
+
+/* Accent border-left pattern (great for Work category cards) */
+.accentBarWeb {
+  border-left: 4px solid var(--accent-web);
+}
+
+.accentBarId {
+  border-left: 4px solid var(--accent-id);
+}
+
+/* Accent chips (tags/pills) */
+.chipWeb {
+  border-color: color-mix(in srgb, var(--accent-web) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent-web) 14%, transparent);
+}
+
+.chipId {
+  border-color: color-mix(in srgb, var(--accent-id) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent-id) 14%, transparent);
+}
+
+/* Optional: accented link */
+.linkWeb {
+  color: var(--accent-web);
+}
+.linkId {
+  color: var(--accent-id);
+}
+
 
 /* -----------------------------
    10) Reduced motion support
