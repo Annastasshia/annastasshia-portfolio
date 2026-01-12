@@ -1,10 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../data/projects";
+import styles from "./ProjectPage.module.css";
 
 function Section({ title, children }) {
   return (
-    <section style={{ padding: "32px 0" }}>
-      <h2 style={{ marginBottom: 8 }}>{title}</h2>
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>{title}</h2>
       {children}
     </section>
   );
@@ -16,33 +17,34 @@ export default function ProjectPage() {
 
   if (!project) {
     return (
-      <main className="container section">
+      <main className={styles.page}>
         <h1>Project not found</h1>
         <p>
-          <Link to="/work" className="link">Back to Work</Link>
+          <Link to="/work" className="link">
+            Back to Work
+          </Link>
         </p>
       </main>
     );
   }
 
   const s = project.sections;
+  const isGallery = project.type === "gallery";
 
   return (
-    <main className="container section">
-      <p style={{ marginBottom: 12 }}>
-        <Link to="/work" className="link">← Back to Work</Link>
-      </p>
+    <main className={styles.page}>
+      <div className={styles.back}>
+        <Link to="/work" className="link">
+          ← Back to Work
+        </Link>
+      </div>
 
-      <h1 style={{ marginBottom: 10 }}>{project.title}</h1>
-      <p style={{ maxWidth: 820 }}>{project.summary}</p>
+      <h1>{project.title}</h1>
+      <p>{project.summary}</p>
 
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 14 }}>
-        <span className="card" style={{ padding: "6px 10px", boxShadow: "none" }}>
-          Role: {project.role}
-        </span>
-        <span className="card" style={{ padding: "6px 10px", boxShadow: "none" }}>
-          Timeline: {project.timeline}
-        </span>
+      <div className={styles.meta}>
+        <span className={styles.metaItem}>Role: {project.role}</span>
+        <span className={styles.metaItem}>Timeline: {project.timeline}</span>
       </div>
 
       <Section title="Overview">
@@ -50,9 +52,9 @@ export default function ProjectPage() {
       </Section>
 
       <Section title="Responsibilities">
-        <ul>
+        <ul className={styles.list}>
           {s.responsibilities.map((item) => (
-            <li key={item} style={{ marginBottom: 6 }}>
+            <li key={item} className={styles.listItem}>
               {item}
             </li>
           ))}
@@ -60,9 +62,9 @@ export default function ProjectPage() {
       </Section>
 
       <Section title="Process">
-        <ol>
+        <ol className={styles.list}>
           {s.process.map((step) => (
-            <li key={step} style={{ marginBottom: 6 }}>
+            <li key={step} className={styles.listItem}>
               {step}
             </li>
           ))}
@@ -70,9 +72,9 @@ export default function ProjectPage() {
       </Section>
 
       <Section title="Results">
-        <ul>
+        <ul className={styles.list}>
           {s.results.map((item) => (
-            <li key={item} style={{ marginBottom: 6 }}>
+            <li key={item} className={styles.listItem}>
               {item}
             </li>
           ))}
@@ -80,12 +82,12 @@ export default function ProjectPage() {
       </Section>
 
       <Section title="Tools">
-        <p>{project.sections.tools.join(" · ")}</p>
+        <p className={styles.tools}>{s.tools.join(" · ")}</p>
       </Section>
 
       {project.links?.length ? (
         <Section title="Links">
-          <ul>
+          <ul className={styles.list}>
             {project.links.map((l) => (
               <li key={l.url}>
                 <a className="link" href={l.url} target="_blank" rel="noreferrer">
@@ -94,6 +96,35 @@ export default function ProjectPage() {
               </li>
             ))}
           </ul>
+        </Section>
+      ) : null}
+
+      {isGallery ? (
+        <Section title="Samples">
+          <div className={styles.gallery}>
+            {project.samples.map((item) => (
+              <article key={item.id} className={styles.sample}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={styles.sampleImage}
+                />
+
+                <div>
+                  <h3 className={styles.sampleTitle}>{item.title}</h3>
+                  <p className={styles.sampleBlurb}>{item.blurb}</p>
+                  <a
+                    className="link"
+                    href={item.ctaUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {item.ctaLabel}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
         </Section>
       ) : null}
     </main>
