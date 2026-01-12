@@ -1,11 +1,11 @@
-import { projects } from "../data/projects";
+import { projectGroups } from "../data/projectGroups";
 import ProjectCard from "../components/ProjectCard";
 
-export default function WorkIndex() {
+function Group({ title, subtitle, items }) {
   return (
-    <main className="container section">
-      <h1>Work</h1>
-      <p>Selected projects with consistent structure for quick review.</p>
+    <section style={{ padding: "32px 0" }}>
+      <h2 style={{ marginBottom: 8 }}>{title}</h2>
+      <p style={{ maxWidth: 820 }}>{subtitle}</p>
 
       <div
         style={{
@@ -15,13 +15,31 @@ export default function WorkIndex() {
           marginTop: 16,
         }}
       >
-        {projects.map((p) => (
+        {items.map((p) => (
           <ProjectCard
             key={p.slug}
             project={{ ...p, link: `/work/${p.slug}` }}
           />
         ))}
       </div>
+    </section>
+  );
+}
+
+export default function WorkIndex() {
+  return (
+    <main className="container section">
+      <h1>Work</h1>
+      <p>Two specialties, six projects, one consistent template.</p>
+
+      {projectGroups.map((g) => (
+        <Group
+          key={g.id}
+          title={g.title}
+          subtitle={g.subtitle}
+          items={g.items}
+        />
+      ))}
     </main>
   );
 }

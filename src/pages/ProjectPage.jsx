@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { projects } from "../data/projects";
+import { projects } from "../data/projectGroups";
 import styles from "./ProjectPage.module.css";
 
 function Section({ title, children }) {
