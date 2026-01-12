@@ -1,52 +1,42 @@
 import { Link } from "react-router-dom";
 import styles from "./ProjectCard.module.css";
 
-export default function ProjectCard({ project }) {
-  const isInternal = project.link?.startsWith("/");
-  const accentClass =
-    project.groupAccent === "instructional"
-      ? styles.instructional
-      : project.groupAccent === "webdesign"
-      ? styles.webdesign
-      : "";
+export default function ProjectCard({ project, variant = "webdesign" }) {
+  const isInstructional = variant === "instructional";
 
-  const content = (
-    <>
-      <div className={styles.header}>
+  return (
+    <Link
+      to={project.link}
+      className={`${styles.card} ${isInstructional ? styles.id : styles.web}`}
+      aria-label={`View project: ${project.title}`}
+    >
+      <div className={styles.top}>
         <h3 className={styles.title}>{project.title}</h3>
-        <span className={styles.ext} aria-hidden="true">
-          ↗
+        <span className={styles.meta}>
+          {project.timeline ? project.timeline : ""}
         </span>
       </div>
 
-      <p className={styles.desc}>{project.summary}</p>
+      <p className={styles.summary}>{project.summary}</p>
 
-      <div className={styles.tags}>
-        {project.tags.map((tag) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
-          </span>
-        ))}
+      {project.tags?.length ? (
+        <div className={styles.tags} aria-label="Project tags">
+          {project.tags.slice(0, 3).map((t) => (
+            <span
+              key={t}
+              className={`${styles.tag} ${isInstructional ? styles.tagId : styles.tagWeb}`}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      <div className={styles.footer}>
+        <span className={`${styles.cta} ${isInstructional ? styles.ctaId : styles.ctaWeb}`}>
+          View case study →
+        </span>
       </div>
-    </>
-  );
-
-  if (isInternal) {
-    return (
-      <Link className={`${styles.card} ${accentClass}`} to={project.link}>
-        {content}
-      </Link>
-    );
-  }
-
-  return (
-    <a
-      className={`${styles.card} ${accentClass}`}
-      href={project.link}
-      target="_blank"
-      rel="noreferrer"
-    >
-      {content}
-    </a>
+    </Link>
   );
 }
