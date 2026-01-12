@@ -1,20 +1,7 @@
-/* Layout */
 .page {
     max-width: var(--container);
     margin: 0 auto;
     padding: clamp(28px, 3vw, 44px) var(--pad-x) clamp(56px, 6vw, 90px);
-  }
-  
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 420px;
-    gap: clamp(24px, 4vw, 56px);
-    align-items: start;
-  }
-  
-  /* Left column content spacing */
-  .content {
-    min-width: 0;
   }
   
   .backLink {
@@ -24,17 +11,31 @@
     margin-bottom: clamp(18px, 2vw, 28px);
     color: var(--muted);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
   }
   
   .backLink:hover {
     text-decoration: underline;
   }
   
-  /* Title + summary */
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+  }
+  
+  .content {
+    min-width: 0;
+  }
+  
+  .header {
+    margin-bottom: var(--space-5);
+  }
+  
   .title {
     margin: 0;
-    font-size: clamp(2.25rem, 4vw, 3rem);
+    font-size: clamp(2.1rem, 4vw, 3rem);
     line-height: 1.05;
     letter-spacing: -0.02em;
     text-wrap: balance;
@@ -42,34 +43,49 @@
   
   .summary {
     margin: 14px 0 0;
-    max-width: 70ch;
+    max-width: 72ch;
     font-size: 1.06rem;
     line-height: 1.75;
     color: var(--muted);
   }
   
-  /* Meta pills: fix the “RoleTimeline” crunch + add spacing */
   .metaRow {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 18px;
-    margin-bottom: 28px;
+    align-items: center;
   }
   
   .pill {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
     padding: 8px 10px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid var(--border);
     background: var(--panel);
     color: var(--text);
     font-size: 0.92rem;
+    font-weight: 650;
   }
   
-  /* Section blocks: the key “case study” upgrade */
+  .pillId {
+    border-color: color-mix(in srgb, var(--accent-id) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent-id) 14%, transparent);
+  }
+  
+  .pillWeb {
+    border-color: color-mix(in srgb, var(--accent-web) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent-web) 14%, transparent);
+  }
+  
+  .tagLine {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* Case-study section rhythm */
   .section {
     margin-top: 28px;
     padding-top: 24px;
@@ -81,17 +97,17 @@
     font-size: 1.35rem;
     line-height: 1.2;
     letter-spacing: -0.01em;
+    color: var(--text);
   }
   
   .p {
     margin: 0;
-    max-width: 70ch;
+    max-width: 72ch;
     color: var(--muted);
     line-height: 1.75;
     font-size: 1rem;
   }
   
-  /* Lists: better spacing + bullets */
   .list {
     margin: 12px 0 0;
     padding-left: 18px;
@@ -103,7 +119,7 @@
     margin: 8px 0;
   }
   
-  /* Right column: add structure + CTA */
+  /* Right rail */
   .side {
     position: sticky;
     top: 92px;
@@ -113,11 +129,10 @@
   }
   
   .previewWrap {
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--panel);
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   }
   
   .preview {
@@ -126,28 +141,46 @@
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    filter: saturate(0.95) contrast(1.02);
   }
   
+  .glowId {
+    box-shadow: var(--glow-id);
+    border-color: color-mix(in srgb, var(--accent-id) 35%, var(--border));
+  }
+  
+  .glowWeb {
+    box-shadow: var(--glow-web);
+    border-color: color-mix(in srgb, var(--accent-web) 35%, var(--border));
+  }
+  
+  /* CTA button */
   .viewMore {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-  
     width: 100%;
+  
     padding: 12px 14px;
     border-radius: 14px;
-    text-decoration: none;
-    font-weight: 700;
   
-    background: var(--accent);
-    color: var(--accent-contrast, #0b0b0b);
+    text-decoration: none;
+    font-weight: 800;
     border: 1px solid transparent;
   }
   
+  .btnId {
+    background: var(--accent-id);
+    color: var(--accent-contrast, #0b0b0b);
+  }
+  
+  .btnWeb {
+    background: var(--accent-web);
+    color: var(--accent-contrast, #0b0b0b);
+  }
+  
   .viewMore:hover {
-    filter: brightness(1.06);
+    filter: brightness(1.05);
   }
   
   .viewMore:focus-visible {
@@ -155,35 +188,16 @@
     outline-offset: 3px;
   }
   
-  /* Optional helper text under button */
+  .viewMore[aria-disabled="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
   .assetHint {
     margin: 0;
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.5;
-  }
-  .previewWrap {
-    position: relative;
-  }
-  
-  .previewWrap::before {
-    content: "";
-    position: absolute;
-    inset: -24px;
-    background: radial-gradient(
-      circle at 30% 20%,
-      color-mix(in srgb, var(--accent) 35%, transparent),
-      transparent 55%
-    );
-    filter: blur(18px);
-    opacity: 0.55;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  .preview {
-    position: relative;
-    z-index: 1;
   }
   
   /* Responsive */
@@ -194,7 +208,7 @@
   
     .side {
       position: static;
-      order: -1; /* puts image up top on mobile */
+      order: -1;
     }
   
     .preview {
