@@ -1,24 +1,27 @@
 import { projectGroups } from "../data/projectGroups";
 import ProjectCard from "../components/ProjectCard";
+import styles from "./WorkIndex.module.css";
 
-function Group({ title, subtitle, items }) {
+function Group({ title, subtitle, items, accent }) {
+  const isInstructional = accent === "instructional";
+
   return (
-    <section style={{ padding: "32px 0" }}>
-      <h2 style={{ marginBottom: 8 }}>{title}</h2>
-      <p style={{ maxWidth: 820 }}>{subtitle}</p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 14,
-          marginTop: 16,
-        }}
+    <section className={styles.group}>
+      <header
+        className={`${styles.groupHeader} ${
+          isInstructional ? styles.headerId : styles.headerWeb
+        }`}
       >
+        <h2 className={styles.groupTitle}>{title}</h2>
+        <p className={styles.groupSubtitle}>{subtitle}</p>
+      </header>
+
+      <div className={styles.grid}>
         {items.map((p) => (
           <ProjectCard
             key={p.slug}
             project={{ ...p, link: `/work/${p.slug}` }}
+            variant={isInstructional ? "instructional" : "webdesign"}
           />
         ))}
       </div>
@@ -28,9 +31,13 @@ function Group({ title, subtitle, items }) {
 
 export default function WorkIndex() {
   return (
-    <main className="container section">
-      <h1>Work</h1>
-      <p>Two specialties, six projects, one consistent template.</p>
+    <main className={`container ${styles.page}`}>
+      <header className={styles.pageHeader}>
+        <h1 className={styles.pageTitle}>Work</h1>
+        <p className={styles.pageSubtitle}>
+          Two specialties, consistent structure, and outcomes you can scan fast.
+        </p>
+      </header>
 
       {projectGroups.map((g) => (
         <Group
@@ -38,8 +45,10 @@ export default function WorkIndex() {
           title={g.title}
           subtitle={g.subtitle}
           items={g.items}
+          accent={g.accent}  // uses your existing values
         />
       ))}
     </main>
   );
 }
+
